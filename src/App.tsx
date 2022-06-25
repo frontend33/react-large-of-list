@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useCallback, useMemo} from 'react';
+import { List } from './components/List'
 import './App.css';
+import { Llist } from './utils/LinkedList'
 
 function App() {
+
+    let d = new Llist();
+    console.log(d);
+    d.push(2)
+    d.push(3)
+    d.push(4)
+    console.log(d);
+
+    const data = ['0']
+
+    for (let i = 1; i < 300; i++) {
+        data.push(String(i))
+    }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <List data={data}/>
     </div>
   );
 }
