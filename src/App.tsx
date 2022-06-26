@@ -5,7 +5,7 @@ import './App.css';
 function App() {
     const data = ['0']
 
-    for (let i = 1; i < 100; i++) {
+    for (let i = 1; i < 200; i++) {
         data.push(String(i))
     }
 

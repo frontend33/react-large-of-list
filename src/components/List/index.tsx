@@ -12,10 +12,7 @@ export const List:FC<any> = ({data}) => {
     const maxRowRender = Math.floor(listHeight / heightRow)
 
     const getCalculateVisibleWindow =(top: number, bottom: number, height: number)=> {
-        // return top + listHeight > scrollTop work top
-        return top + listHeight > scrollTop
-        // return top + listHeight > scrollTop && (scrollTop + (listHeight * 2)) >= height
-        // return (top <= scrollTop + (listHeight * 1.5) ) && (bottom - (listHeight * -0.5) >= scrollTop)
+        return (top + listHeight > scrollTop ) && (bottom - (listHeight * 2) - height >= scrollTop)
     }
 
     const splitArray = useMemo(() => {
@@ -31,10 +28,9 @@ export const List:FC<any> = ({data}) => {
                 const height = listHeight + listHeight * count
                 let top = i === maxRowRender - 1  ? 0 : summaryTop + listHeight
                 summaryTop = summaryTop + listHeight
-                // let bottom = top + height
+                let bottom = top + height
                 const isVisible = getCalculateVisibleWindow(top, summaryBottom, height)
-                // node.bottom = node.top + node.height;
-                nodes.push({dataList: subArr, height, count: ++count, top, bottom: summaryBottom, isVisible })
+                nodes.push({dataList: subArr, height, count: ++count, top,bottom, summaryBottom, isVisible })
                 summaryBottom = summaryBottom - listHeight
                 subArr = []
             } else {
@@ -45,9 +41,9 @@ export const List:FC<any> = ({data}) => {
         if (!!subArr.length) {
             const height = listHeight * count + (subArr.length - 1) * heightRow
             const top = summaryTop + listHeight
-            // let bottom = top + height
+            let bottom = top + height
             const isVisible = getCalculateVisibleWindow(top, summaryBottom, height)
-            nodes.push({dataList: subArr, height, top, bottom: summaryBottom, isVisible })
+            nodes.push({dataList: subArr, height, top, bottom, summaryBottom, isVisible })
         }
         return nodes
     },[data,listHeight, maxRowRender, scrollTop])
